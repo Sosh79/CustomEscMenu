@@ -1,0 +1,202 @@
+FrameWidgetClass FrameWidget {
+ ignorepointer 0
+ size 1 1
+ halign center_ref
+ valign center_ref
+ priority 995
+ {
+  ImageWidgetClass background_image {
+   visible 1
+   ignorepointer 1
+   color 0.1882 0.851 1 0.0039
+   position -0.00034 0.00273
+   size 1.90736 1
+   halign center_ref
+   valign center_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   fixaspect outside
+   mode blend
+   "src alpha" 1
+   "clamp mode" clamp
+   "stretch mode" stretch_w_h
+   filter 1
+   nocache 1
+  }
+  PanelWidgetClass top_left_panel {
+   ignorepointer 1
+   position 33 47
+   size 400 245.15401
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   {
+    ImageWidgetClass server_logo {
+     ignorepointer 1
+     size 1 1
+     halign center_ref
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     imageTexture "{1DB514DFEA42751C}CustomEscMenu/GUI/icons/logo.edds"
+     mode blend
+     "src alpha" 1
+     "clamp mode" clamp
+     "stretch mode" stretch_w_h
+     filter 1
+     nocache 1
+    }
+   }
+  }
+  WrapSpacerWidgetClass top_right_panel {
+   ignorepointer 1
+   color 0.0235 0.0667 0.0824 0.4863
+   position 0 142
+   size 730.47803 81
+   halign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   Padding 0
+   Margin 0
+   "Size To Content V" 1
+   content_halign right
+   {
+    TextWidgetClass txtLogoutTime {
+     ignorepointer 1
+     color 0.8 0.2 0.2 1
+     size 1 60
+     hexactsize 0
+     vexactsize 1
+     text "LOGOUT IN 00"
+     font "gui/fonts/sdf_MetronLight72"
+     "text halign" center
+     "text valign" center
+    }
+    TextWidgetClass session_title {
+     ignorepointer 1
+     color 0.9176 0.9176 0.9176 1
+     size 1 30
+     hexactsize 0
+     vexactsize 1
+     text "SECURE DISCONNECTION"
+     font "gui/fonts/sdf_MetronLight24"
+     "text halign" center
+     "text valign" center
+    }
+   }
+  }
+  WrapSpacerWidgetClass bottom_left_panel {
+   visible 1
+   inheritalpha 0
+   ignorepointer 1
+   color 0.0235 0.0667 0.0824 0.4863
+   position 0 0
+   size 862.98901 131.85701
+   halign center_ref
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   scaled 1
+   Padding 0
+   Margin 0
+   "Size To Content V" 1
+   content_halign center
+   content_valign center
+   {
+    MultilineTextWidgetClass txtDescription {
+     ignorepointer 1
+     position 0 0
+     size 1 1
+     halign center_ref
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "Your character will remain in the world for a short period."
+     font "gui/fonts/metronlight-italic22"
+     "exact text" 1
+     "exact text size" 24
+     "text halign" center
+     "text valign" center
+     wrap 1
+    }
+   }
+  }
+  WrapSpacerWidgetClass bottom_right_panel {
+   ignorepointer 1
+   color 0.0235 0.0667 0.0824 0.4784
+   position 6.3436 145.56
+   size 0.18852 155.89101
+   halign center_ref
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 1
+   Padding 10
+   Margin 3
+   "Size To Content V" 1
+   content_halign center
+   content_valign bottom
+   {
+    ButtonWidgetClass bLogoutNow {
+     size 0.968 0.25
+     hexactsize 0
+     vexactsize 0
+     {
+      TextWidgetClass bLogoutNow_label {
+       ignorepointer 1
+       color 0.8 0.2 0.2 1
+       size 1 1
+       text "EXIT NOW"
+       font "gui/fonts/sdf_MetronLight24"
+       "text halign" center
+       "text valign" center
+      }
+     }
+    }
+    ButtonWidgetClass bCancel {
+     position 0 0
+     size 0.968 0.25
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     {
+      TextWidgetClass bCancel_label {
+       ignorepointer 1
+       size 1 1
+       text "CANCEL"
+       font "gui/fonts/sdf_MetronLight24"
+       "text halign" center
+       "text valign" center
+      }
+     }
+    }
+   }
+  }
+  FrameWidgetClass vanilla_compat_hidden {
+   visible 0
+   ignorepointer 1
+   position 0 0
+   size 0 0
+   {
+    ButtonWidgetClass bCancelConsole {
+    }
+    PanelWidgetClass toolbar_bg {
+    }
+   }
+  }
+ }
+}
