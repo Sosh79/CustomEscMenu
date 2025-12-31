@@ -34,6 +34,14 @@ modded class InGameMenu
         
         UpdatePlayerStats();
 
+        // High-Force Cleanup for Expansion/Other mods
+        string expansion_widgets[] = {"ExpansionLogo", "ExpansionVersion", "ExpansionMenuPanel", "logo_expansion", "version_expansion"};
+        foreach (string widget_name : expansion_widgets)
+        {
+            Widget w_ex = layoutRoot.FindAnyWidget(widget_name);
+            if (w_ex) w_ex.Unlink();
+        }
+
         HudShow(false);
         
         Mission mission = g_Game.GetMission();
