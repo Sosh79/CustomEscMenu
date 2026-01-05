@@ -196,6 +196,59 @@ FrameWidgetClass FrameWidget {
    "Size To Content V" 1
    content_halign right
    {
+     ButtonWidgetClass respawn_button {
+      position 0 0
+      size 1 0.1
+      hexactsize 0
+      vexactsize 0
+      scaled 1
+      {
+       TextWidgetClass respawn_button_label {
+        ignorepointer 1
+        size 1 1
+        text "RESPAWN"
+        font "gui/fonts/sdf_MetronLight42"
+        "text halign" center
+        "text valign" center
+       }
+      }
+     }
+     ButtonWidgetClass respawn_button_random {
+      visible 0
+      position 0 0
+      size 1 0.1
+      hexactsize 0
+      vexactsize 0
+      scaled 1
+      {
+       TextWidgetClass respawn_button_random_label {
+        ignorepointer 1
+        size 1 1
+        text "RANDOM RESPAWN"
+        font "gui/fonts/sdf_MetronLight42"
+        "text halign" center
+        "text valign" center
+       }
+      }
+     }
+     ButtonWidgetClass respawn_button_custom {
+      visible 0
+      position 0 0
+      size 1 0.1
+      hexactsize 0
+      vexactsize 0
+      scaled 1
+      {
+       TextWidgetClass respawn_button_custom_label {
+        ignorepointer 1
+        size 1 1
+        text "CUSTOM RESPAWN"
+        font "gui/fonts/sdf_MetronLight42"
+        "text halign" center
+        "text valign" center
+       }
+      }
+     }
     ButtonWidgetClass continuebtn {
      position 0 0
      size 1 0.1
@@ -265,24 +318,6 @@ FrameWidgetClass FrameWidget {
     ButtonWidgetClass restartbtn {
      {
       TextWidgetClass restartbtn_label {
-      }
-     }
-    }
-    ButtonWidgetClass respawn_button {
-     {
-      TextWidgetClass respawn_button_label {
-      }
-     }
-    }
-    ButtonWidgetClass respawn_button_random {
-     {
-      TextWidgetClass respawn_button_random_label {
-      }
-     }
-    }
-    ButtonWidgetClass respawn_button_custom {
-     {
-      TextWidgetClass respawn_button_custom_label {
       }
      }
     }

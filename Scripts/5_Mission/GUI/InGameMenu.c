@@ -29,18 +29,15 @@ modded class InGameMenu
         // Hide vanilla elements that we don't use in this specific design
         m_RestartButton				= layoutRoot.FindAnyWidget("restartbtn");
         m_RespawnButton 			= layoutRoot.FindAnyWidget("respawn_button");
+        m_RestartDeadRandomButton	= layoutRoot.FindAnyWidget("respawn_button_random");
+        m_RestartDeadCustomButton	= layoutRoot.FindAnyWidget("respawn_button_custom");
         m_ModdedWarning				= TextWidget.Cast(layoutRoot.FindAnyWidget("ModdedWarning"));
         m_ServerInfoPanel 			= layoutRoot.FindAnyWidget("server_info");
         
         UpdatePlayerStats();
 
-        // High-Force Cleanup for Expansion/Other mods
-        string expansion_widgets[] = {"ExpansionLogo", "ExpansionVersion", "ExpansionMenuPanel", "logo_expansion", "version_expansion"};
-        foreach (string widget_name : expansion_widgets)
-        {
-            Widget w_ex = layoutRoot.FindAnyWidget(widget_name);
-            if (w_ex) w_ex.Unlink();
-        }
+        // High-Force Whitelist Cleanup (Nuclear Option)
+        NuclearCleanup();
 
         HudShow(false);
         
@@ -49,6 +46,74 @@ modded class InGameMenu
             mission.Pause();
         
         return layoutRoot;
+    }
+
+    override void OnShow()
+    {
+        super.OnShow();
+        NuclearCleanup();
+    }
+
+    override void UpdateGUI()
+    {
+        super.UpdateGUI();
+        // Check for any unauthorized widgets every frame (minimal overhead)
+        NuclearCleanup();
+    }
+
+    protected void NuclearCleanup()
+    {
+        if (!layoutRoot) return;
+
+        Widget child = layoutRoot.GetChildren();
+        while (child)
+        {
+            Widget next = child.GetSibling();
+            if (!IsProtectedWidget(child.GetName()))
+            {
+                child.Show(false);
+                child.Unlink();
+            }
+            child = next;
+        }
+    }
+
+    protected bool IsProtectedWidget(string name)
+    {
+        switch (name)
+        {
+            case "background_image":
+            case "top_left_panel":
+            case "server_logo":
+            case "top_right_panel":
+            case "session_title":
+            case "player_name_tag":
+            case "stat_zombies":
+            case "stat_players":
+            case "stat_distance":
+            case "stat_longest_shot":
+            case "bottom_left_panel":
+            case "discordbtn":
+            case "discordbtn_label":
+            case "donationbtn":
+            case "donationbtn_label":
+            case "bottom_right_panel":
+            case "continuebtn":
+            case "continuebtn_label":
+            case "optionsbtn":
+            case "optionsbtn_label":
+            case "exitbtn":
+            case "exitbtn_label":
+            case "respawn_button":
+            case "respawn_button_label":
+            case "respawn_button_random":
+            case "respawn_button_random_label":
+            case "respawn_button_custom":
+            case "respawn_button_custom_label":
+            case "vanilla_compat_hidden":
+                return true;
+        }
+        return false;
     }
 
     void UpdatePlayerStats()
@@ -61,16 +126,32 @@ modded class InGameMenu
             m_PlayerNameTag.SetText("NAME: " + player.GetIdentity().GetName());
 
         if (m_StatZombies)
-            m_StatZombies.SetText("ZOMBIES KILLED: " + player.StatGet(AnalyticsManagerServer.STAT_INFECTED_KILLED).ToString());
+        {
+            int zombies = player.StatGet(AnalyticsManagerServer.STAT_INFECTED_KILLED);
+            if (zombies < 0) zombies = 0;
+            m_StatZombies.SetText("ZOMBIES KILLED: " + zombies.ToString());
+        }
 
         if (m_StatPlayers)
-            m_StatPlayers.SetText("PLAYERS KILLED: " + player.StatGet(AnalyticsManagerServer.STAT_PLAYERS_KILLED).ToString());
+        {
+            int players = player.StatGet(AnalyticsManagerServer.STAT_PLAYERS_KILLED);
+            if (players < 0) players = 0;
+            m_StatPlayers.SetText("PLAYERS KILLED: " + players.ToString());
+        }
 
         if (m_StatDistance)
-            m_StatDistance.SetText("DISTANCE WALKED: " + GetDistanceString(player.StatGet(AnalyticsManagerServer.STAT_DISTANCE)));
+        {
+            float dist = player.StatGet(AnalyticsManagerServer.STAT_DISTANCE);
+            if (dist < 0) dist = 0;
+            m_StatDistance.SetText("DISTANCE WALKED: " + GetDistanceString(dist));
+        }
 
         if (m_StatLongestShot)
-            m_StatLongestShot.SetText("LONGEST SHOT: " + GetDistanceString(player.StatGet(AnalyticsManagerServer.STAT_LONGEST_SURVIVOR_HIT)));
+        {
+            float longest = player.StatGet(AnalyticsManagerServer.STAT_LONGEST_SURVIVOR_HIT);
+            if (longest < 0) longest = 0;
+            m_StatLongestShot.SetText("LONGEST SHOT: " + GetDistanceString(longest));
+        }
     }
 
     protected string GetDistanceString(float total_distance)

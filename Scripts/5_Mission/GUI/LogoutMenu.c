@@ -22,8 +22,62 @@ modded class LogoutMenu
         {
             player.GetEmoteManager().SetClientLoggingOut(true);
         }
+        
+        NuclearCleanup();
 
         return layoutRoot;
+    }
+
+    override void OnShow()
+    {
+        super.OnShow();
+        NuclearCleanup();
+    }
+
+    override void Update(float timeslice)
+    {
+        super.Update(timeslice);
+        NuclearCleanup();
+    }
+
+    protected void NuclearCleanup()
+    {
+        if (!layoutRoot) return;
+
+        Widget child = layoutRoot.GetChildren();
+        while (child)
+        {
+            Widget next = child.GetSibling();
+            if (!IsProtectedWidget(child.GetName()))
+            {
+                child.Show(false);
+                child.Unlink();
+            }
+            child = next;
+        }
+    }
+
+    protected bool IsProtectedWidget(string name)
+    {
+        switch (name)
+        {
+            case "background_image":
+            case "top_left_panel":
+            case "server_logo":
+            case "top_right_panel":
+            case "txtLogoutTime":
+            case "session_title":
+            case "bottom_left_panel":
+            case "txtDescription":
+            case "bottom_right_panel":
+            case "bLogoutNow":
+            case "bLogoutNow_label":
+            case "bCancel":
+            case "bCancel_label":
+            case "vanilla_compat_hidden":
+                return true;
+        }
+        return false;
     }
 
     override void SetTime(int time)
