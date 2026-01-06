@@ -2,6 +2,7 @@ modded class InGameMenu
 {
     protected Widget m_DiscordButton;
     protected Widget m_DonationButton;
+    protected Widget m_InfoButton;
     
     protected TextWidget m_PlayerNameTag;
     protected TextWidget m_StatZombies;
@@ -9,9 +10,17 @@ modded class InGameMenu
     protected TextWidget m_StatDistance;
     protected TextWidget m_StatLongestShot;
 
+    void ~InGameMenu()
+    {
+        GetRPCManager().RemoveRPC("CustomEscMenuRPC", "GetConfigResponse");
+    }
+
     override Widget Init()
     {
         layoutRoot = GetGame().GetWorkspace().CreateWidgets("CustomEscMenu/GUI/layouts/custom_ingamemenu.layout");
+        
+        // Register RPC for config
+        GetRPCManager().AddRPC("CustomEscMenuRPC", "GetConfigResponse", this, SingeplayerExecutionType.Client);
         
         m_ContinueButton			= layoutRoot.FindAnyWidget("continuebtn");
         m_ExitButton				= layoutRoot.FindAnyWidget("exitbtn");
@@ -19,6 +28,7 @@ modded class InGameMenu
         
         m_DiscordButton             = layoutRoot.FindAnyWidget("discordbtn");
         m_DonationButton            = layoutRoot.FindAnyWidget("donationbtn");
+        m_InfoButton                = layoutRoot.FindAnyWidget("infobtn");
         
         m_PlayerNameTag             = TextWidget.Cast(layoutRoot.FindAnyWidget("player_name_tag"));
         m_StatZombies               = TextWidget.Cast(layoutRoot.FindAnyWidget("stat_zombies"));
@@ -52,6 +62,9 @@ modded class InGameMenu
     {
         super.OnShow();
         NuclearCleanup();
+        
+        // Request config for links
+        GetRPCManager().SendRPC("CustomEscMenuRPC", "GetConfigRequest", null, true, null);
     }
 
     override void UpdateGUI()
@@ -100,6 +113,8 @@ modded class InGameMenu
             case "bottom_right_panel":
             case "continuebtn":
             case "continuebtn_label":
+            case "infobtn":
+            case "infobtn_label":
             case "optionsbtn":
             case "optionsbtn_label":
             case "exitbtn":
@@ -174,17 +189,42 @@ modded class InGameMenu
         return meters.ToString() + " m";
     }
 
+    // Config RPC Handler
+    void GetConfigResponse(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    {
+        if (type != CallType.Client || !GetGame().IsClient()) return;
+
+        Param1<CustomEscMenuConfig> data;
+        if (!ctx.Read(data)) return;
+
+        CustomEscMenuConfig config = data.param1;
+        CustomEscMenuConfigManager.SetConfig(config);
+    }
+
     override bool OnClick(Widget w, int x, int y, int button)
     {
         if (w == m_DiscordButton)
         {
-          GetGame().OpenURL("https://discord.gg/nWbaERkAQR");
+          string discord = "https://discord.gg/nWbaERkAQR";
+          CustomEscMenuConfig config = CustomEscMenuConfigManager.GetConfig();
+          if (config && config.DiscordLink != "") discord = config.DiscordLink;
+          
+          GetGame().OpenURL(discord);
           return true;
         }
         else if (w == m_DonationButton)
         {
-          GetGame().OpenURL("https://www.gtxgaming.co.uk/clientarea/index.php?m=public_pay&hash_id=WY0o0rNgGQzv");
+          string donation = "https://www.gtxgaming.co.uk/clientarea/index.php?m=public_pay&hash_id=WY0o0rNgGQzv";
+          CustomEscMenuConfig config2 = CustomEscMenuConfigManager.GetConfig();
+          if (config2 && config2.DonationLink != "") donation = config2.DonationLink;
+          
+          GetGame().OpenURL(donation);
           return true;
+        }
+        else if (w == m_InfoButton)
+        {
+            GetGame().GetUIManager().EnterScriptedMenu(CUSTOM_INTEL_MENU, this);
+            return true;
         }
 
         return super.OnClick(w, x, y, button);

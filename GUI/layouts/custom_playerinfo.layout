@@ -1,0 +1,233 @@
+FrameWidgetClass rootFrame {
+ position 0 0
+ size 1 1
+ hexactpos 0
+ vexactpos 0
+ hexactsize 0
+ vexactsize 0
+ {
+  PanelWidgetClass main_stats_panel {
+   ignorepointer 1
+   position -7.01598 0
+   size 1397.91003 688
+   halign center_ref
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   {
+    PanelWidgetClass progress_bars_panel {
+     ignorepointer 1
+     position 0.05 0.1
+     size 0.2 0.8
+     {
+      ProgressBarWidgetClass HealthBar {
+       color 0.1569 0.6235 0.2745 1
+       position 4.70695 3.60316
+       size 50 278
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style Stamina
+       vertical 1
+       flipped 1
+      }
+      ImageWidgetClass health_icon {
+       position 6.46451 293.61902
+       size 50 43
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       image0 "set:dayz_gui image:iconHealth0"
+       mode blend
+       "src alpha" 1
+       "stretch mode" fit_w_center
+      }
+      ProgressBarWidgetClass BloodBar {
+       color 0.7686 0.1412 0.1412 1
+       position 81.85971 3.60316
+       size 50 278
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style Stamina
+       maximum 100
+       vertical 1
+       flipped 1
+      }
+      ImageWidgetClass blood_icon {
+       disabled 0
+       inheritalpha 0
+       ignorepointer 0
+       ignoregloballv 0
+       position 83.85571 292.61902
+       size 50 44
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       scaled 1
+       image0 "set:dayz_gui image:iconBlood0"
+       mode blend
+       "src alpha" 1
+       "clamp mode" invalid
+       "stretch mode" fit_w_center
+      }
+      ProgressBarWidgetClass WaterBar {
+       color 0 0.4706 0.7843 1
+       position 155.396 3.60342
+       size 50 278
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style Stamina
+       maximum 100
+       vertical 1
+       flipped 1
+      }
+      ImageWidgetClass water_icon {
+       position 157.392 293.62
+       size 50 43
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       image0 "set:dayz_gui image:iconThirsty0"
+       mode blend
+       "src alpha" 1
+       "stretch mode" fit_w_center
+      }
+      ProgressBarWidgetClass EnergyBar {
+       color 0.8627 0.7059 0.1569 1
+       position 225.31799 3.60343
+       size 50 278
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style Stamina
+       maximum 100
+       vertical 1
+       flipped 1
+      }
+      ImageWidgetClass energy_icon {
+       position 227.313 293.61902
+       size 50 43
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       image0 "set:dayz_gui image:iconHungry0"
+       mode blend
+       "src alpha" 1
+       "stretch mode" fit_w_center
+      }
+     }
+    }
+    GridSpacerWidgetClass stats_grid {
+     ignorepointer 1
+     position 0.3 0.1
+     size 846.61798 549.45801
+     hexactsize 1
+     vexactsize 1
+     Padding 10
+     Columns 2
+     Rows 5
+     {
+      TextWidgetClass label_survival {
+       position 0 0
+       size 1 48
+       text "SURVIVAL TIME:"
+       font "gui/fonts/sdf_MetronLight24"
+       "text color" 1 1 1 1
+       "exact text" 1
+       "text valign" center
+      }
+      TextWidgetClass txt_survivalTime {
+       size 1 47.99
+       text "00:00"
+       font "gui/fonts/sdf_MetronLight24"
+       "text color" 1 1 1 1
+       "exact text" 1
+       "text halign" center
+       "text valign" center
+      }
+      TextWidgetClass label_distance {
+       size 1 48
+       text "DISTANCE:"
+       font "gui/fonts/sdf_MetronLight24"
+       "text color" 1 1 1 1
+       "exact text" 1
+       "text valign" center
+      }
+      TextWidgetClass txt_distance {
+       size 1 47.99
+       text "0 m"
+       font "gui/fonts/sdf_MetronLight24"
+       "text color" 1 1 1 1
+       "exact text" 1
+       "text halign" center
+       "text valign" center
+      }
+      TextWidgetClass label_zkilled {
+       size 1 48
+       text "ZOMBIES KILLED:"
+       font "gui/fonts/sdf_MetronLight24"
+       "text color" 1 1 1 1
+       "exact text" 1
+       "text valign" center
+      }
+      TextWidgetClass txt_zKilled {
+       size 1 47.99
+       text "0"
+       font "gui/fonts/sdf_MetronLight24"
+       "text color" 1 1 1 1
+       "exact text" 1
+       "text halign" center
+       "text valign" center
+      }
+      TextWidgetClass label_pkilled {
+       size 1 48
+       text "PLAYERS KILLED:"
+       font "gui/fonts/sdf_MetronLight24"
+       "text color" 1 1 1 1
+       "exact text" 1
+       "text valign" center
+      }
+      TextWidgetClass txt_pKilled {
+       size 1 47.99
+       text "0"
+       font "gui/fonts/sdf_MetronLight24"
+       "text color" 1 1 1 1
+       "exact text" 1
+       "text halign" center
+       "text valign" center
+      }
+      TextWidgetClass label_longest {
+       size 1 48
+       text "LONGEST SHOT:"
+       font "gui/fonts/sdf_MetronLight24"
+       "text color" 1 1 1 1
+       "exact text" 1
+       "text valign" center
+      }
+      TextWidgetClass txt_longestShot {
+       size 1 47.99
+       text "0 m"
+       font "gui/fonts/sdf_MetronLight24"
+       "text color" 1 1 1 1
+       "exact text" 1
+       "text halign" center
+       "text valign" center
+      }
+     }
+    }
+   }
+  }
+ }
+}

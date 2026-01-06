@@ -27,8 +27,13 @@ class CfgMods {
     version = "1.0";
     extra = 0;
     type = "mod";
+    inputs = "CustomEscMenu/data/inputs.xml";
     dependencies[] = {"Game", "Mission"};
     class defs {
+      class gameScriptModule {
+        value = "";
+        files[] = {"CustomEscMenu/Scripts/3_Game"};
+      };
       class missionScriptModule {
         value = "";
         files[] = {"CustomEscMenu/Scripts/5_Mission"};

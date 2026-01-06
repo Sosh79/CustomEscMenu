@@ -34,4 +34,30 @@ modded class MissionGameplay
 
         m_PauseQueued = false;
     }
+
+    override void OnUpdate(float timeslice)
+    {
+        super.OnUpdate(timeslice);
+
+        // Check for Custom Reload Input defined in inputs.xml
+        if (GetGame().GetInput().LocalPress("UACustomEscMenuReload", false))
+        {
+            // Send Reload Request
+            GetRPCManager().SendRPC("CustomEscMenuRPC", "ReloadConfigRequest", null, true, null);
+        }
+    }
+    
+    // RPC Registration
+    void MissionGameplay()
+    {
+        GetRPCManager().AddRPC("CustomEscMenuRPC", "ShowReloadNotification", this, SingeplayerExecutionType.Client);
+    }
+    
+    void ShowReloadNotification(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    {
+        if (type != CallType.Client || !GetGame().IsClient()) return;
+        
+        // Show notification
+        NotificationSystem.AddNotificationExtended(3.0, "Config Reloaded", "Configuration has been successfully reloaded and broadcasted!", "set:dayz_gui_v2 image:tutorials");
+    }
 }

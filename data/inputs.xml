@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<modded_inputs>
+	<inputs>
+		<actions>
+			<input name="UACustomEscMenuReload" loc="EscMenuReload (admins only)"/>
+		</actions>
+		<sorting name="SOSH79" loc="SOSH79">
+			<input name="UACustomEscMenuReload"/>
+		</sorting>
+	</inputs>
+	<preset>
+		<input name="UACustomEscMenuReload">
+			<btn name=""/>
+		</input>
+	</preset>
+</modded_inputs>
